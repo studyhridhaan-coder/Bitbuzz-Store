@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The BitBuzz Store | Curated Works</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #0a192f;
+    --grid-line: rgba(45,108,223,0.15);
+    --accent: #ffb800;
+    --text-main: #e6f1ff;
+    --text-dim: #8892b0;
+    --card-bg: #112240;
+    --easing: cubic-bezier(0.16,1,0.3,1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg);
+    background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--text-main);
+    font-family: "Inter", -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+}
+
+.store {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 90px 24px;
+}
+
+/* HEADER */
+.store-header {
+    border-left: 4px solid var(--accent);
+    padding-left: 28px;
+    margin-bottom: 90px;
+}
+
+.store-header h1 {
+    font-family: "Space Mono", monospace;
+    font-size: 3rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+}
+
+.store-header p {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    max-width: 520px;
+}
+
+/* GRID */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 42px;
+}
+
+/* CARD */
+.product-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 34px;
+    transition: all 0.5s var(--easing);
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+}
+
+/* IMAGE FRAME */
+.image-frame {
+    background: #0d1b2a;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255,255,255,0.05);
+    overflow: hidden;
+}
+
+.image-frame img {
+    max-width: 90%;
+    max-height: 85%;
+    object-fit: contain;
+    filter: drop-shadow(0 12px 24px rgba(0,0,0,0.5));
+    transition: transform 0.6s var(--easing);
+}
+
+.product-card:hover .image-frame img {
+    transform: scale(1.08);
+}
+
+/* TEXT */
+.product-title {
+    font-family: "Space Mono", monospace;
+    font-size: 1.55rem;
+    margin-bottom: 14px;
+}
+
+.product-desc {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.65;
+    margin-bottom: 28px;
+}
+
+/* LINK BUTTON */
+.product-link {
+    display: block;
+    text-align: center;
+    padding: 15px;
+    border: 1px solid rgba(255,255,255,0.25);
+    color: var(--text-main);
+    text-decoration: none;
+    font-family: "Space Mono", monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.35s var(--easing);
+}
+
+.product-card:hover .product-link {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(255,184,0,0.05);
+}
+
+/* FOOTER */
+.store-footer {
+    margin-top: 110px;
+    text-align: center;
+    font-family: "Space Mono", monospace;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+
+<main class="store">
+
+    <!-- HEADER -->
+    <header class="store-header">
+        <h1>The BitBuzz Store</h1>
+        <p>
+            A curated selection of independent creative works.
+            Designed with intent. Built with discipline.
+        </p>
+    </header>
+
+    <!-- PRODUCTS -->
+    <section class="product-grid">
+
+        <!-- PRODUCT 1 -->
+        <article class="product-card">
+            <div class="image-frame">
+                <img src="https://media.bribooks.com/public/AuthorCoverImages/user_cover_6776cdb0545df_b1_v892196.png?width=500&format=avif"
+                     alt="The Galaxy Escape">
+            </div>
+            <h2 class="product-title">The Galaxy Escape</h2>
+            <p class="product-desc">
+                A space-themed fiction journey through unknown systems.
+                A story of courage, survival, and escape beyond the stars.
+            </p>
+            <a class="product-link"
+               href="https://www.bribooks.com/bookstore/the-galaxy-escape/"
+               target="_blank">
+               View Book
+            </a>
+        </article>
+
+        <!-- PRODUCT 2 -->
+        <article class="product-card">
+            <div class="image-frame">
+                <img src="https://media.bribooks.com/public/AuthorCoverImages/user_cover_693835a535111_b0_v1636954.png?width=400&format=avif"
+                     alt="The Rescue">
+            </div>
+            <h2 class="product-title">The Rescue</h2>
+            <p class="product-desc">
+                A gripping continuation set in deep space,
+                where survival depends on a single rescue mission.
+            </p>
+            <a class="product-link"
+               href="https://www.bribooks.com/bookstore/the-galaxy-escape/"
+               target="_blank">
+               View Book
+            </a>
+        </article>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="store-footer">
+        SYSTEM STATUS: ONLINE · CURATED RELEASE · © BITBUZZ
+    </footer>
+
+</main>
+
+</body>
+</html>
