@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The BitBuzz Store | Curated Works</title>
+<title>The BitBuzz Store </title>
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -37,10 +37,91 @@ body {
     min-height: 100vh;
 }
 
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.store-header {
+    animation: fadeUp 0.9s var(--easing) both;
+}
+
+.product-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+        opacity 0.8s var(--easing),
+        transform 0.8s var(--easing);
+}
+
+.product-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+/* ================= NAVBAR ================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(10, 25, 47, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    z-index: 1000;
+}
+
+.navbar {
+    transition: transform 0.4s var(--easing);
+}
+
+
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-family: "Space Mono", monospace;
+    letter-spacing: 0.15em;
+    font-size: 0.85rem;
+    color: var(--accent);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+}
+
+.nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+/* ================= STORE ================= */
 .store {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 90px 24px;
+    padding: 140px 24px;
 }
 
 /* HEADER */
@@ -72,6 +153,7 @@ body {
 
 /* CARD */
 .product-card {
+    position: relative;
     background: var(--card-bg);
     border: 1px solid rgba(255,255,255,0.08);
     padding: 34px;
@@ -84,14 +166,60 @@ body {
     box-shadow: 0 30px 60px rgba(0,0,0,0.45);
 }
 
-/* IMAGE FRAME */
+@keyframes float {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
+
+.product-card {
+    animation: float 12s ease-in-out infinite;
+}
+
+.product-card:nth-child(2) {
+    animation-delay: 3s;
+}
+
+.product-card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: radial-gradient(
+        600px circle at var(--x, 50%) var(--y, 50%),
+        rgba(255,184,0,0.25),
+        transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.product-card:hover::before {
+    opacity: 1;
+}
+
+/* BADGE */
+.badge {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-family: "Space Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: #0a192f;
+    background: var(--accent);
+    padding: 6px 10px;
+}
+
+/* IMAGE */
 .image-frame {
     background: #0d1b2a;
     height: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 28px;
+    margin-bottom: 22px;
     border: 1px solid rgba(255,255,255,0.05);
     overflow: hidden;
 }
@@ -108,6 +236,101 @@ body {
     transform: scale(1.08);
 }
 
+/* PRICE */
+.price-tag {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 6px 14px;
+    font-family: "Space Mono", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border: 1px solid rgba(255,184,0,0.4);
+    background: rgba(255,184,0,0.08);
+}
+
+.product-card:hover .price-tag {
+    transform: scale(1.08);
+    transition: transform 0.4s var(--easing);
+}
+
+.product-card:hover .product-link {
+    letter-spacing: 0.12em;
+}
+
+.image-frame img {
+    will-change: transform;
+}
+
+.product-card:hover .image-frame img {
+    transform: scale(1.08) translateY(-4px);
+}
+
+@keyframes pulse {
+    0%   { box-shadow: 0 0 0 rgba(255,184,0,0); }
+    50%  { box-shadow: 0 0 40px rgba(255,184,0,0.06); }
+    100% { box-shadow: 0 0 0 rgba(255,184,0,0); }
+}
+
+.store-header {
+    animation: fadeUp 0.9s var(--easing) both, pulse 8s ease-in-out infinite;
+}
+
+body {
+    cursor: none;
+}
+
+a, button {
+    cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(255,184,0,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition:
+        width 0.3s ease,
+        height 0.3s ease,
+        border-color 0.3s ease;
+}
+@keyframes clickPulse {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+
+    body {
+        cursor: auto;
+    }
+}
+
+
 /* TEXT */
 .product-title {
     font-family: "Space Mono", monospace;
@@ -122,7 +345,7 @@ body {
     margin-bottom: 28px;
 }
 
-/* LINK BUTTON */
+/* BUTTON */
 .product-link {
     display: block;
     text-align: center;
@@ -143,78 +366,221 @@ body {
     background: rgba(255,184,0,0.05);
 }
 
+.product-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
 /* FOOTER */
 .store-footer {
-    margin-top: 110px;
+    margin-top: 120px;
+    padding: 60px 24px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
     font-family: "Space Mono", monospace;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-dim);
+}
+
+.store-footer a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.footer-status {
+    margin-top: 12px;
     opacity: 0.6;
 }
+
+/* STARFIELD */
+.stars {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+        radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+        radial-gradient(1px 1px at 80% 40%, #fff, transparent),
+        radial-gradient(1px 1px at 50% 80%, #fff, transparent),
+        radial-gradient(1px 1px at 10% 90%, #fff, transparent),
+        radial-gradient(1px 1px at 90% 10%, #fff, transparent);
+    background-size: 100% 100%;
+    animation: starDrift 120s linear infinite;
+    opacity: 0.25;
+}
+
+@keyframes starDrift {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-200px); }
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <div class="nav-logo">BITBUZZ</div>
+        <ul class="nav-links">
+            <li><a href="#">Store</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="stars"></div>
+
 <main class="store">
 
-    <!-- HEADER -->
-    <header class="store-header">
-        <h1>The BitBuzz Store</h1>
-        <p>
-            A curated selection of independent creative works.
-            Designed with intent. Built with discipline.
-        </p>
-    </header>
+<header class="store-header">
+    <h1>The BitBuzz Store</h1>
+    <p>
+        A Store for Cool and Awesome stuff!.
+    </p>
+</header>
 
-    <!-- PRODUCTS -->
-    <section class="product-grid">
+<section class="product-grid">
 
-        <!-- PRODUCT 1 -->
-        <article class="product-card">
-            <div class="image-frame">
-                <img src="https://media.bribooks.com/public/AuthorCoverImages/user_cover_6776cdb0545df_b1_v892196.png?width=500&format=avif"
-                     alt="The Galaxy Escape">
-            </div>
-            <h2 class="product-title">The Galaxy Escape</h2>
-            <p class="product-desc">
-                A space-themed fiction journey through unknown systems.
-                A story of courage, survival, and escape beyond the stars.
-            </p>
-            <a class="product-link"
-               href="https://www.bribooks.com/bookstore/the-galaxy-escape/"
-               target="_blank">
-               View Book
-            </a>
-        </article>
+<article class="product-card">
+    <div class="badge">FEATURED</div>
+    <div class="image-frame">
+        <img loading="lazy"
+             src="https://media.bribooks.com/public/AuthorCoverImages/user_cover_6776cdb0545df_b1_v892196.png?width=500&format=avif"
+             alt="The Galaxy Escape">
+    </div>
+    <div class="price-tag">₹399</div>
+    <h2 class="product-title">The Galaxy Escape</h2>
+    <p class="product-desc">
+        A space-themed fiction journey through unknown systems.
+        A story of courage, survival, and escape beyond the stars.
+    </p>
+    <a class="product-link"
+       href="https://www.bribooks.com/bookstore/the-galaxy-escape/"
+       target="_blank"
+       rel="noopener noreferrer">
+       View Book
+    </a>
+</article>
 
-        <!-- PRODUCT 2 -->
-        <article class="product-card">
-            <div class="image-frame">
-                <img src="https://media.bribooks.com/public/AuthorCoverImages/user_cover_693835a535111_b0_v1636954.png?width=400&format=avif"
-                     alt="The Rescue">
-            </div>
-            <h2 class="product-title">The Rescue</h2>
-            <p class="product-desc">
-                A gripping continuation set in deep space,
-                where survival depends on a single rescue mission.
-            </p>
-            <a class="product-link"
-               href="https://www.bribooks.com/bookstore/the-galaxy-escape/"
-               target="_blank">
-               View Book
-            </a>
-        </article>
+<article class="product-card">
+    <div class="image-frame">
+        <img loading="lazy"
+             src="https://media.bribooks.com/public/AuthorCoverImages/user_cover_693835a535111_b0_v1636954.png?width=400&format=avif"
+             alt="The Rescue">
+    </div>
+    <div class="price-tag">₹529</div>
+    <h2 class="product-title">The Rescue</h2>
+    <p class="product-desc">
+        A gripping continuation set in deep space,
+        where survival depends on a single rescue mission.
+    </p>
+    <a class="product-link"
+       href="https://www.bribooks.com/bookstore/the-rescue-by-ritvik-sahay/"
+       target="_blank"
+       rel="noopener noreferrer">
+       View Book
+    </a>
+</article>
 
-    </section>
+</section>
 
-    <!-- FOOTER -->
-    <footer class="store-footer">
-        SYSTEM STATUS: ONLINE · CURATED RELEASE · © BITBUZZ
-    </footer>
+<footer class="store-footer">
+    <div class="footer-inner">
+        <p>© 2026 · The Bitbuzz Store</p>
+        <p><a href="mailto:contact@bitbuzz.store">Hridhaan@Bitbuzz.club</a></p>
+        <p class="footer-status">SYSTEM STATUS: ONLINE · The Bitbuzz Store/p>
+    </div>
+</footer>
 
 </main>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.product-card').forEach(card => {
+    observer.observe(card);
+});
+</script>
+
+<script>
+document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+    });
+});
+</script>
+<script>
+const interactiveElements = document.querySelectorAll(
+    'a, .product-card'
+);
+
+interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        ring.style.width = '56px';
+        ring.style.height = '56px';
+        ring.style.borderColor = 'rgba(255,184,0,0.9)';
+    });
+
+    el.addEventListener('mouseleave', () => {
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = 'rgba(255,184,0,0.4)';
+    });
+});
+</script>
+<script>
+window.addEventListener('mousedown', () => {
+    ring.style.animation = 'clickPulse 0.4s ease-out';
+    ring.addEventListener('animationend', () => {
+        ring.style.animation = '';
+    }, { once: true });
+});
+</script>
+
+
+<script>
+const dot = document.querySelector('.cursor-dot');
+const ring = document.querySelector('.cursor-ring');
+
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    dot.style.left = mouseX + 'px';
+    dot.style.top = mouseY + 'px';
+});
+
+function animateRing() {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+
+    requestAnimationFrame(animateRing);
+}
+animateRing();
+</script>
+
+
+
 
 </body>
 </html>
