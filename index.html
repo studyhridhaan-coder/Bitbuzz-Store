@@ -534,6 +534,84 @@ a, button {
     color: var(--text-dim);
 }
 
+/* MOBILE COSMIC SWEEP */
+.cosmic-sweep {
+    position: fixed;
+    inset: -50%;
+    background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(255,184,0,0.05),
+        transparent 60%
+    );
+    animation: sweep 18s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes sweep {
+    from {
+        transform: translateX(-30%) translateY(0);
+    }
+    to {
+        transform: translateX(30%) translateY(-30%);
+    }
+}
+
+@media (min-width: 769px) {
+    .cosmic-sweep {
+        display: none;
+    }
+}
+/* MOBILE EDGE GLOW */
+@media (max-width: 768px) {
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        border: 1px solid rgba(255,184,0,0.12);
+        animation: edgePulse 6s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 1;
+    }
+}
+
+@keyframes edgePulse {
+    0%   { opacity: 0.15; }
+    50%  { opacity: 0.35; }
+    100% { opacity: 0.15; }
+}
+@media (max-width: 768px) {
+    body {
+        animation: mobileDrift 120s linear infinite;
+    }
+}
+
+@keyframes mobileDrift {
+    from {
+        background-position: 0 0, 0 0;
+    }
+    to {
+        background-position: 0 -800px, -800px 0;
+    }
+}
+@media (max-width: 768px) {
+    .product-card {
+        animation: mobileFloat 16s ease-in-out infinite;
+    }
+
+    .product-card:nth-child(2) {
+        animation-delay: 4s;
+    }
+}
+
+@keyframes mobileFloat {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+}
+
+
 .store-footer a {
     color: var(--accent);
     text-decoration: none;
@@ -567,6 +645,7 @@ a, button {
 
 </style>
 </head>
+<div class="cosmic-sweep"></div>
 
 <body>
 
